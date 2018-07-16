@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthenticationGuard } from './authentication.guard';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { UserModule } from './user/user.module';
 
@@ -18,7 +17,6 @@ import { UserModule } from './user/user.module';
     UserModule,
     DashboardModule
   ],
-  providers: [AuthenticationGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

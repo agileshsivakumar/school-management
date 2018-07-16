@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { User } from './user.model';
 
 @Injectable()
 export class UserService {
@@ -28,7 +31,12 @@ export class UserService {
     return this._userName;
   }
 
-  public authenticateUser(userName: string, password: string) {
-    // call web service
+  public authenticateUser() {
+    return this.http.get('assets/login.csv', { responseType: 'text' });
+  }
+
+  private handleError(error: Response | any) {
+    console.error('ApiService::handleError', error);
+    return Observable.throw(error);
   }
 }

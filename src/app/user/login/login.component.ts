@@ -13,10 +13,31 @@ export class LoginComponent {
   constructor(public userService: UserService, private router: Router) {}
 
   public singIn() {
-    if (this.userName === 'admin' && this.password === 'admin') {
-      this.userService.setUserDetails(this.userName);
-      this.router.navigate(['dashboard']);
+    this.userService.authenticateUser().subscribe(data => {
+      console.log(data);
+      const users: any[] = this.csvToJSON(data);
+      users.forEach(user => {
+        if (user.Name === this.userName && user.Password === this.password) {
+          this.userService.setUserDetails(this.userName);
+          this.router.navigate(['dashboard']);
+        }
+      });
+    });
+  }
+
+  private csvToJSON(csv) {
+    const lines = csv.split('\n');
+    const result = [];
+    const headers = lines[0].split(',');
+    for (let i = 1; i < lines.length - 1; i++) {
+      const obj = {};
+      const currentline = lines[i].split(',');
+      for (let j = 0; j < headers.length; j++) {
+        obj[headers[j]] = currentline[j];
+      }
+      result.push(obj);
     }
+    return result;
   }
 
   public navigateToRegister() {
