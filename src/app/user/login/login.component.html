@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <label for="userName">User Name</label>
+    </div>
+    <div class="col">
+      <input type="text" placeholder="username" [(ngModel)]="userName">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label for="password">Password</label>
+    </div>
+    <div class="col">
+      <input type="text" placeholder="password" [(ngModel)]="password">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button (click)="singIn()">Login</button>
+    </div>
+    <div class="col">
+      <button (click)="navigateToRegister()">Register</button>
+    </div>
+  </div>
+</div>
