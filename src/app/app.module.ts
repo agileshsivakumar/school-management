@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { UserModule } from './user/user.module';
+import { CommonUtilModule } from './common-util/common-util.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +16,7 @@ import { UserModule } from './user/user.module';
     AppRoutingModule,
     HttpClientModule,
     UserModule,
+    CommonUtilModule,
     DashboardModule
   ],
   bootstrap: [AppComponent]

@@ -1,0 +1,23 @@
+[
+  {
+    "firstName": "Administrator",
+    "lastName": "Admin",
+    "username": "admin",
+    "password": "Dactylion^264",
+    "role": "admin"
+  },
+  {
+    "firstName": "Agilesh",
+    "lastName": "Sivakumar",
+    "username": "agilesh",
+    "password": "password",
+    "role": "teacher"
+  },
+  {
+    "firstName": "Sivakumar",
+    "lastName": "M",
+    "username": "sivakumar",
+    "password": "password",
+    "role": "principal"
+  }
+]

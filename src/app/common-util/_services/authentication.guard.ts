@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserService } from './user/user.service';
+import { UserService } from '../../user/_services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class AuthenticationGuard implements CanActivate {
     if (this.userService.getIsUserLoggedIn()) {
       return true;
     }
-    this.router.navigate(['']);
+    this.router.navigate(['login']);
     return false;
   }
 }

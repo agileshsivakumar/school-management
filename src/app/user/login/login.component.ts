@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../user.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -8,39 +14,44 @@ import { UserService } from '../user.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  public userName = '';
-  public password = '';
-  constructor(public userService: UserService, private router: Router) {}
+  loginFormGroup: FormGroup;
+  isLoginFormLoading = false;
 
-  public singIn() {
-    this.userService.authenticateUser().subscribe(data => {
-      console.log(data);
-      const users: any[] = this.csvToJSON(data);
-      users.forEach(user => {
-        if (user.Name === this.userName && user.Password === this.password) {
-          this.userService.setUserDetails(this.userName);
-          this.router.navigate(['dashboard']);
-        }
-      });
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {
+    this.createLoginForm();
+  }
+
+  createLoginForm() {
+    this.loginFormGroup = this.formBuilder.group({
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
     });
   }
 
-  private csvToJSON(csv) {
-    const lines = csv.split('\n');
-    const result = [];
-    const headers = lines[0].split(',');
-    for (let i = 1; i < lines.length - 1; i++) {
-      const obj = {};
-      const currentline = lines[i].split(',');
-      for (let j = 0; j < headers.length; j++) {
-        obj[headers[j]] = currentline[j];
-      }
-      result.push(obj);
-    }
-    return result;
+  get username() {
+    return this.loginFormGroup.get('username');
+  }
+  get password() {
+    return this.loginFormGroup.get('password');
   }
 
-  public navigateToRegister() {
-    this.router.navigate(['register']);
+  public onLoginFormSubmit() {
+    this.userService.registerUser();
+    if (this.loginFormGroup.invalid) {
+      return;
+    }
+    this.isLoginFormLoading = true;
+    this.userService
+      .authenticateUser(this.username.value, this.password.value)
+      .subscribe(isAuthenticated => {
+        if (isAuthenticated) {
+          this.router.navigate(['']);
+        }
+        this.isLoginFormLoading = false;
+      });
   }
 }

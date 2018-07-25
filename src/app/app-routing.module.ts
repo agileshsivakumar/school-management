@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserComponent } from './user/user.component';
 import { RegisterComponent } from './user/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AuthenticationGuard } from './authentication.guard';
+import { LoginComponent } from './user/login/login.component';
+import { AuthenticationGuard } from './common-util/_services/authentication.guard';
 
 const routes: Routes = [
-  { path: '', component: UserComponent },
   {
-    path: 'register',
-    component: RegisterComponent,
-    canActivate: [AuthenticationGuard]
+    path: 'login',
+    component: LoginComponent
   },
   {
-    path: 'dashboard',
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: '',
     component: DashboardComponent,
     canActivate: [AuthenticationGuard]
   }
